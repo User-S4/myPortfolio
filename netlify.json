@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "src/pages/**/*.astro", "use": "@netlify/plugin-functions-core" }
+  ]
+}
