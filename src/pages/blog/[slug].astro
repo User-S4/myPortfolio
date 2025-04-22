@@ -1,25 +1,4 @@
-<!--
-  Blog dynamic route temporarily disabled for deployment.
-  All code is commented out to prevent build errors.
--->
-<!--
----
-import Layout from '../../layouts/Layout.astro';
-import Button from '../../components/Button.astro';
-import { getBlogPost } from '../../lib/notion';
-
-export async function getStaticPaths() {
-  return [{ params: { slug: undefined } }];
-}
-
-const { slug } = Astro.params;
-const post = await getBlogPost(slug);
-
-if (!post) {
-  return Astro.redirect('/404');
-}
----
--->
+export const prerender = false;
 
 <main style="min-height: 40vh; display: flex; align-items: center; justify-content: center;">
   <h2 style="color: #888; font-size: 2rem; text-align: center;">Blog route is temporarily disabled for deployment.<br/>Please check back later.</h2>
