@@ -1,0 +1,265 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+
+// Education timeline data
+const education = [
+  {
+    title: "Bachelor of Computer Science",
+    institution: "University of Wollongong in Dubai",
+    location: "Dubai, United Arab Emirates",
+    period: "2023 - Present",
+    description: "Currently in my 2nd term, focusing on algorithms, data structures, and software engineering principles."
+  },
+  {
+    title: "High School Diploma",
+    institution: "Primus Private School LLC. located in Dubai in the United Arab Emirates",
+    location: "Dubai, UAE",
+    period: "2020 - 2024",
+    description: "Graduated with honors, focused on mathematics, physics, and computer science."
+  }
+];
+
+// Skills data
+const skills = [
+  {
+    category: "Programming Languages",
+    items: ["JavaScript", "TypeScript", "Python", "Java", "C++"]
+  },
+  {
+    category: "Web Development",
+    items: ["React.js", "Next.js", "Astro", "Node.js", "HTML/CSS", "Tailwind CSS"]
+  },
+  {
+    category: "Tools & Platforms",
+    items: ["Git", "Docker", "AWS", "Firebase", "Figma"]
+  },
+  {
+    category: "AI & Data",
+    items: ["TensorFlow", "PyTorch", "Data Analysis", "Machine Learning"]
+  }
+];
+
+// Achievements data
+const achievements = [
+  {
+    title: "Student Council Member",
+    period: "2022 - 2024",
+    description: "Elected to the higher echelon of the student council for two consecutive years, leading initiatives to improve student life and organizing school-wide events."
+  },
+  {
+    title: "Hackathon Participant",
+    period: "2023 - Present",
+    description: "Participated in 6 hackathons, developing innovative solutions under time constraints and collaborating with diverse teams."
+  },
+  {
+    title: "AI Study App Creator",
+    period: "2023",
+    description: "Collaborated with two classmates to develop an AI-powered study application that helps students organize and optimize their learning process."
+  },
+  {
+    title: "Website Development Projects",
+    period: "2023 - Present",
+    description: "Worked with a logistics company to create a website and implement WhatsApp automation, and collaborated with an agency on website development."
+  }
+];
+---
+
+<Layout title="About Arun Kumar S. | Computer Science Student & Developer">
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 bg-white dark:bg-neutral-900">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">About Me</h1>
+          <div class="space-y-4 text-neutral-600 dark:text-neutral-400">
+            <p>
+  Hello! I'm <span class="text-primary-500 font-medium">Arun Kumar S.</span>, a <span id="dynamic-age">18</span>-year-old Computer Science student at the University of Wollongong in Dubai, United Arab Emirates. Currently in my second term, I am passionate about developing innovative solutions and exploring the intersection of technology and design.
+  <script type="text/javascript">
+    function calculateAge() {
+      const birthYear = 2007;
+      const birthMonth = 2; // February
+      const birthDay = 24;
+      const today = new Date();
+      let age = today.getFullYear() - birthYear;
+      if (
+        today.getMonth() + 1 < birthMonth ||
+        (today.getMonth() + 1 === birthMonth && today.getDate() < birthDay)
+      ) {
+        age--;
+      }
+      return age;
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('dynamic-age').innerText = calculateAge();
+    });
+  </script>
+</p>
+            <p>
+  I was born and raised in Dubai, UAE, and graduated from Primus Private School LLC. in 2024. My high school years fostered my curiosity for technology and problem-solving, inspiring me to pursue further studies in computer science.
+</p>
+            <p>
+  Throughout high school, I actively participated in technology-related activities and competitions, which strengthened my programming and analytical skills. These experiences solidified my decision to pursue computer science at the university level.
+</p>
+            <p>
+  Outside of academics, I enjoy exploring the vibrant city of Dubai, experimenting with photography, and engaging in thoughtful discussions about technology and innovation. I am always eager to learn new skills and contribute to meaningful projects.
+</p>
+          </div>
+          
+          <div class="mt-8 flex gap-4">
+            <Button href="/contact" variant="primary">Contact Me</Button>
+            <Button href="/projects" variant="outline">View My Work</Button>
+          </div>
+        </div>
+        
+        <div class="order-first lg:order-last flex justify-center">
+          <div class="relative">
+            <!-- Border decoration -->
+            <div class="absolute inset-0 border-2 border-primary-500 rounded-xl -translate-x-4 -translate-y-4"></div>
+            
+            <!-- Image -->
+            <img 
+              src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" 
+              alt="Arun Kumar S." 
+              class="w-full h-auto max-w-md rounded-xl shadow-lg"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Education Timeline Section -->
+  <section class="py-20 bg-neutral-50 dark:bg-neutral-800">
+    <div class="container mx-auto px-4 md:px-6">
+      <h2 class="text-3xl font-bold mb-12 text-center">Education</h2>
+      
+      <div class="relative max-w-3xl mx-auto">
+        <!-- Timeline Line -->
+        <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-1 bg-primary-200 dark:bg-primary-800"></div>
+        
+        {education.map((item, index) => (
+          <div class={`relative mb-12 md:mb-0 ${index % 2 === 0 ? 'md:ml-auto md:pl-10' : 'md:mr-auto md:pr-10'}`}>
+            <div class={`flex flex-col md:items-${index % 2 === 0 ? 'start' : 'end'} relative md:w-1/2 ${index % 2 === 0 ? 'md:ml-auto' : 'md:mr-auto'}`}>
+              <!-- Timeline Dot -->
+              <div class="absolute left-0 md:left-auto md:top-2 md:-ml-5 md:-mr-5 bg-primary-500 h-10 w-10 rounded-full flex items-center justify-center shadow-md z-10">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+                </svg>
+              </div>
+              
+              <!-- Content -->
+              <div class={`bg-white dark:bg-neutral-900 p-6 rounded-xl shadow-md w-full md:max-w-md ${index % 2 === 0 ? '' : 'md:ml-auto'}`}>
+                <span class="bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-100 text-sm font-medium px-2.5 py-0.5 rounded-full mb-2 inline-block">
+                  {item.period}
+                </span>
+                <h3 class="text-xl font-bold">{item.title}</h3>
+                <div class="text-neutral-600 dark:text-neutral-400 mb-2">{item.institution}, {item.location}</div>
+                <p class="text-neutral-700 dark:text-neutral-300">{item.description}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Skills Section -->
+  <section class="py-20 bg-white dark:bg-neutral-900">
+    <div class="container mx-auto px-4 md:px-6">
+      <h2 class="text-3xl font-bold mb-12 text-center">Skills & Expertise</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {skills.map((skillGroup) => (
+          <div class="bg-neutral-50 dark:bg-neutral-800 p-6 rounded-xl">
+            <h3 class="text-xl font-bold mb-4 text-primary-500">{skillGroup.category}</h3>
+            <ul class="space-y-2">
+              {skillGroup.items.map((skill) => (
+                <li class="flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-accent-500 mr-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  <span>{skill}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Achievements Section -->
+  <section class="py-20 bg-neutral-50 dark:bg-neutral-800">
+    <div class="container mx-auto px-4 md:px-6">
+      <h2 class="text-3xl font-bold mb-12 text-center">Achievements</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {achievements.map((achievement) => (
+          <div class="bg-white dark:bg-neutral-900 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+            <div class="flex items-start gap-4">
+              <div class="bg-primary-100 dark:bg-primary-900 p-3 rounded-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-primary-500">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0" />
+                </svg>
+              </div>
+              <div>
+                <div class="flex justify-between items-start">
+                  <h3 class="text-xl font-bold">{achievement.title}</h3>
+                  <span class="text-sm text-neutral-500 dark:text-neutral-400">{achievement.period}</span>
+                </div>
+                <p class="mt-2 text-neutral-600 dark:text-neutral-400">{achievement.description}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Call to Action -->
+  <section class="py-20 bg-gradient-to-r from-primary-500 to-secondary-500 text-white">
+    <div class="container mx-auto px-4 md:px-6 text-center">
+      <h2 class="text-3xl font-bold mb-4">Want to Work Together?</h2>
+      <p class="max-w-2xl mx-auto mb-8">
+        I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+      </p>
+      <a href="mailto:arunsethu2007+GetInTouch@gmail.com" class="inline-block border border-white text-white px-6 py-2 rounded hover:bg-white hover:bg-opacity-10 transition-colors">
+        Get in Touch
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    // Animation for timeline items when scrolling into view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    const timelineItems = document.querySelectorAll('.relative.mb-12, .relative.md\\:mb-0');
+    timelineItems.forEach(item => {
+      observer.observe(item);
+    });
+  });
+</script>
+
+<style>
+  /* Timeline animations */
+  .relative.mb-12, .relative.md\:mb-0 {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  .relative.mb-12.show, .relative.md\:mb-0.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

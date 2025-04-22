@@ -1,0 +1,460 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+
+// Project data
+const projects = [
+  {
+    title: "AI-Powered Study App",
+    description: "Collaborated with two classmates to create a study application powered by AI that helps students organize and optimize their learning process.",
+    longDescription: "The Study AI Assistant is a comprehensive study tool designed to enhance the learning experience of university students. Developed in collaboration with two classmates, this application leverages artificial intelligence to help students organize study materials, create effective study schedules, and provide personalized learning recommendations. The app analyzes learning patterns and adapts to individual student needs, making it a powerful tool for academic success.",
+    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    tags: ["AI", "React", "Node.js", "MongoDB", "Machine Learning"],
+    link: "/projects/study-app",
+    featured: true,
+    year: 2023
+  },
+  {
+    title: "Logistics Website",
+    description: "Developed a comprehensive website for a logistics company, implementing efficient WhatsApp automation for streamlined customer communication.",
+    longDescription: "This project involved designing and developing a modern, responsive website for a logistics company to enhance their online presence and customer service capabilities. The website features a user-friendly interface for service inquiries, package tracking, and quote requests. A key component of this project was implementing WhatsApp automation, which allows customers to receive real-time updates about their shipments and communicate directly with the company through the popular messaging platform, significantly improving customer engagement and satisfaction rates.",
+    image: "https://images.unsplash.com/photo-1566232392379-b3af432b772e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1769&q=80",
+    tags: ["NextJS", "Tailwind CSS", "WhatsApp API", "Strapi CMS", "Docker"],
+    link: "/projects/logistics-website",
+    featured: true,
+    year: 2024
+  },
+  {
+    title: "Agency Website",
+    description: "Designed and developed a modern, responsive website for a creative agency, focusing on user experience and performance optimization.",
+    longDescription: "This project involved creating a visually stunning website for a creative agency that showcases their portfolio, services, and team members. The design emphasizes clean aesthetics, engaging animations, and intuitive navigation. Special attention was paid to performance optimization, including image lazy loading, code splitting, and modern build techniques to ensure fast load times across all devices. The result is a website that not only looks impressive but also provides an excellent user experience with smooth interactions and quick response times.",
+    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    tags: ["Astro", "React", "Framer Motion", "GSAP", "Vercel"],
+    link: "/projects/agency-website",
+    featured: true,
+    year: 2023
+  },
+  {
+    title: "Health Tracking Mobile App",
+    description: "Created a cross-platform mobile application for health and fitness tracking with personalized goal setting and progress visualization.",
+    longDescription: "The Health Tracker is a comprehensive mobile application designed to help users monitor their health and fitness activities. Featuring an intuitive interface, the app allows users to track workouts, nutrition, sleep patterns, and vital statistics. The application includes personalized goal setting functionality and uses data visualization to present progress in an easily digestible format. Developed using React Native, the app works seamlessly across both iOS and Android platforms, ensuring a wide user reach.",
+    image: "https://images.unsplash.com/photo-1510017803434-a899398421b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    tags: ["React Native", "TypeScript", "Firebase", "Health API", "Redux"],
+    link: "/projects/health-app",
+    featured: false,
+    year: 2023
+  },
+  {
+    title: "Crypto Market Analysis Tool",
+    description: "Developed a cryptocurrency market analysis tool that uses machine learning algorithms to predict price trends and provide investment insights.",
+    longDescription: "This project is a sophisticated cryptocurrency market analysis tool that leverages machine learning algorithms to predict price movements and market trends. The application aggregates data from multiple cryptocurrency exchanges and news sources, applying sentiment analysis to social media discussions to gauge market sentiment. Users can access detailed technical analysis, customize alerts for specific market conditions, and review historical predictions to assess the tool's accuracy. This project demonstrates a practical application of AI and data science in the financial technology sector.",
+    image: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    tags: ["Python", "TensorFlow", "React", "MongoDB", "Data Visualization"],
+    link: "/projects/crypto-analysis",
+    featured: false,
+    year: 2024
+  },
+  {
+    title: "E-Learning Platform Redesign",
+    description: "Redesigned an existing e-learning platform to improve user experience, accessibility, and content delivery for better learning outcomes.",
+    longDescription: "This project involved a comprehensive redesign of an existing e-learning platform to address usability issues and enhance the learning experience. The redesign focused on creating an intuitive interface that accommodates different learning styles, improves content discovery, and provides better progress tracking. Accessibility was a key consideration, ensuring the platform complies with WCAG guidelines and is usable by people with various disabilities. The project also included implementing a more efficient content delivery system to optimize video streaming and interactive components, resulting in significant improvements in user engagement and course completion rates.",
+    image: "https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    tags: ["UX/UI Design", "Vue.js", "Accessibility", "AWS", "Figma"],
+    link: "/projects/elearning-redesign",
+    featured: false,
+    year: 2023
+  }
+];
+
+// Filter for featured projects
+const featuredProjects = projects.filter(project => project.featured);
+
+// Get unique tags for filtering
+const allTags = [...new Set(projects.flatMap(project => project.tags))].sort();
+
+// Get unique years for filtering
+const allYears = [...new Set(projects.map(project => project.year))].sort().reverse();
+---
+
+<Layout title="Projects | Arun Kumar S.">
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 bg-white dark:bg-neutral-900">
+    <div class="container mx-auto px-4 md:px-6 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">My Projects</h1>
+      <p class="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
+        A collection of my work spanning web development, artificial intelligence, and design. Each project represents a challenge overcome and skills enhanced.
+      </p>
+    </div>
+  </section>
+  
+  <!-- Filters Section -->
+  <section class="py-8 bg-neutral-50 dark:bg-neutral-800 border-y border-neutral-200 dark:border-neutral-700">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="flex flex-wrap gap-2 items-center">
+          <span class="text-neutral-700 dark:text-neutral-300 font-medium">Filter by:</span>
+          
+          <!-- Tags Filter -->
+          <div class="relative" id="tag-filter-container">
+            <button id="tag-filter-btn" class="flex items-center gap-2 bg-white dark:bg-neutral-900 px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300">
+              <span>Tags</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+            
+            <div id="tag-filter-dropdown" class="hidden absolute left-0 top-full mt-2 bg-white dark:bg-neutral-900 rounded-lg border border-neutral-200 dark:border-neutral-700 shadow-lg z-20 w-64 max-h-64 overflow-y-auto">
+              <div class="p-2 space-y-1">
+                <button data-tag="all" class="w-full text-left px-3 py-2 rounded-lg bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-primary-300">All Tags</button>
+                {allTags.map(tag => (
+                  <button data-tag={tag} class="w-full text-left px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+                    {tag}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+          
+          <!-- Year Filter -->
+          <div class="relative" id="year-filter-container">
+            <button id="year-filter-btn" class="flex items-center gap-2 bg-white dark:bg-neutral-900 px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300">
+              <span>Year</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+            
+            <div id="year-filter-dropdown" class="hidden absolute left-0 top-full mt-2 bg-white dark:bg-neutral-900 rounded-lg border border-neutral-200 dark:border-neutral-700 shadow-lg z-20 w-40">
+              <div class="p-2 space-y-1">
+                <button data-year="all" class="w-full text-left px-3 py-2 rounded-lg bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-primary-300">All Years</button>
+                {allYears.map(year => (
+                  <button data-year={year} class="w-full text-left px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+                    {year}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Search -->
+        <div class="relative">
+          <input 
+            type="text" 
+            id="project-search" 
+            placeholder="Search projects..." 
+            class="w-full md:w-64 px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
+          />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+        </div>
+      </div>
+      
+      <!-- Active Filters -->
+      <div id="active-filters" class="mt-4 flex flex-wrap gap-2 hidden">
+        <!-- Active filters will be inserted here via JavaScript -->
+      </div>
+    </div>
+  </section>
+  
+  <!-- Projects Grid -->
+  <section class="py-16 bg-white dark:bg-neutral-900">
+    <div class="container mx-auto px-4 md:px-6">
+      <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {projects.map((project) => (
+          <div 
+            data-tags={JSON.stringify(project.tags)} 
+            data-year={project.year}
+            class="project-card bg-neutral-50 dark:bg-neutral-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+          >
+            <div class="relative h-56 overflow-hidden">
+              <img 
+                src={project.image} 
+                alt={project.title}
+                class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+              />
+              <div class="absolute top-3 right-3">
+                <span class="bg-black bg-opacity-50 text-white text-sm font-medium px-2.5 py-1 rounded">
+                  {project.year}
+                </span>
+              </div>
+              {project.featured && (
+                <div class="absolute top-3 left-3">
+                  <span class="bg-primary-500 text-white text-sm font-medium px-2.5 py-1 rounded-full flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                    </svg>
+                    Featured
+                  </span>
+                </div>
+              )}
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">{project.title}</h3>
+              <p class="text-neutral-600 dark:text-neutral-400 mb-4">{project.description}</p>
+              <div class="flex flex-wrap gap-2 mb-4">
+                {project.tags.map((tag) => (
+                  <span class="bg-neutral-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200 rounded-full px-3 py-1 text-sm">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <a href={project.link} class="text-primary-500 hover:text-primary-600 font-medium flex items-center gap-1">
+                View Details
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <!-- No Results Message -->
+      <div id="no-results" class="hidden text-center py-16">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 mx-auto text-neutral-400 mb-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 16.318A4.486 4.486 0 0012.016 15a4.486 4.486 0 00-3.198 1.318M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+        </svg>
+        <h3 class="text-2xl font-bold mb-2">No Projects Found</h3>
+        <p class="text-neutral-600 dark:text-neutral-400 mb-6">Try adjusting your filters or search criteria</p>
+        <Button id="reset-filters" variant="primary">Reset Filters</Button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Call to Action -->
+  <section class="py-20 bg-gradient-to-r from-primary-500 to-secondary-500 text-white">
+    <div class="container mx-auto px-4 md:px-6 text-center">
+      <h2 class="text-3xl font-bold mb-4">Have a Project in Mind?</h2>
+      <p class="max-w-2xl mx-auto mb-8">
+        I'm always looking for interesting projects to work on. If you have an idea, let's discuss how we can bring it to life.
+      </p>
+      <a href="mailto:arunsethu2007+GetInTouch@gmail.com" class="inline-block border border-white text-white px-6 py-2 rounded hover:bg-white hover:bg-opacity-10 transition-colors">
+        Get in Touch
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const tagFilterBtn = document.getElementById('tag-filter-btn');
+    const tagFilterDropdown = document.getElementById('tag-filter-dropdown');
+    const yearFilterBtn = document.getElementById('year-filter-btn');
+    const yearFilterDropdown = document.getElementById('year-filter-dropdown');
+    const projectSearch = document.getElementById('project-search');
+    const projectsGrid = document.getElementById('projects-grid');
+    const noResults = document.getElementById('no-results');
+    const resetFiltersBtn = document.getElementById('reset-filters');
+    const activeFilters = document.getElementById('active-filters');
+    
+    let currentFilters = {
+      tag: 'all',
+      year: 'all',
+      search: ''
+    };
+    
+    // Toggle dropdowns
+    tagFilterBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      tagFilterDropdown?.classList.toggle('hidden');
+      yearFilterDropdown?.classList.add('hidden');
+    });
+    
+    yearFilterBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      yearFilterDropdown?.classList.toggle('hidden');
+      tagFilterDropdown?.classList.add('hidden');
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!tagFilterBtn?.contains(e.target) && !tagFilterDropdown?.contains(e.target)) {
+        tagFilterDropdown?.classList.add('hidden');
+      }
+      
+      if (!yearFilterBtn?.contains(e.target) && !yearFilterDropdown?.contains(e.target)) {
+        yearFilterDropdown?.classList.add('hidden');
+      }
+    });
+    
+    // Filter by tag
+    const tagButtons = tagFilterDropdown?.querySelectorAll('button');
+    tagButtons?.forEach(button => {
+      button.addEventListener('click', () => {
+        const tag = button.getAttribute('data-tag');
+        if (tag) {
+          currentFilters.tag = tag;
+          updateFilters();
+          filterProjects();
+          tagFilterDropdown?.classList.add('hidden');
+        }
+      });
+    });
+    
+    // Filter by year
+    const yearButtons = yearFilterDropdown?.querySelectorAll('button');
+    yearButtons?.forEach(button => {
+      button.addEventListener('click', () => {
+        const year = button.getAttribute('data-year');
+        if (year) {
+          currentFilters.year = year;
+          updateFilters();
+          filterProjects();
+          yearFilterDropdown?.classList.add('hidden');
+        }
+      });
+    });
+    
+    // Search functionality
+    projectSearch?.addEventListener('input', (e) => {
+      currentFilters.search = e.target.value.toLowerCase();
+      filterProjects();
+    });
+    
+    // Reset filters
+    resetFiltersBtn?.addEventListener('click', () => {
+      currentFilters = {
+        tag: 'all',
+        year: 'all',
+        search: ''
+      };
+      
+      if (projectSearch) {
+        projectSearch.value = '';
+      }
+      
+      updateFilters();
+      filterProjects();
+    });
+    
+    // Filter projects based on current filters
+    function filterProjects() {
+      const projectCards = document.querySelectorAll('.project-card');
+      let visibleCount = 0;
+      
+      projectCards.forEach(card => {
+        const tags = JSON.parse(card.getAttribute('data-tags') || '[]');
+        const year = card.getAttribute('data-year');
+        const title = card.querySelector('h3')?.textContent?.toLowerCase() || '';
+        const description = card.querySelector('p')?.textContent?.toLowerCase() || '';
+        
+        // Check if card matches all filters
+        const matchesTag = currentFilters.tag === 'all' || tags.includes(currentFilters.tag);
+        const matchesYear = currentFilters.year === 'all' || year === currentFilters.year;
+        const matchesSearch = currentFilters.search === '' || 
+                              title.includes(currentFilters.search) || 
+                              description.includes(currentFilters.search) ||
+                              tags.some(tag => tag.toLowerCase().includes(currentFilters.search));
+        
+        const isVisible = matchesTag && matchesYear && matchesSearch;
+        
+        // Show/hide card
+        if (isVisible) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      
+      // Show or hide "No results" message
+      if (visibleCount === 0) {
+        noResults?.classList.remove('hidden');
+        projectsGrid?.classList.add('hidden');
+      } else {
+        noResults?.classList.add('hidden');
+        projectsGrid?.classList.remove('hidden');
+      }
+    }
+    
+    // Update active filters display
+    function updateFilters() {
+      if (!activeFilters) return;
+      
+      // Clear current filters
+      activeFilters.innerHTML = '';
+      let hasFilters = false;
+      
+      // Add tag filter chip if not "all"
+      if (currentFilters.tag !== 'all') {
+        addFilterChip('tag', currentFilters.tag);
+        hasFilters = true;
+      }
+      
+      // Add year filter chip if not "all"
+      if (currentFilters.year !== 'all') {
+        addFilterChip('year', currentFilters.year);
+        hasFilters = true;
+      }
+      
+      // Add search filter chip if not empty
+      if (currentFilters.search !== '') {
+        addFilterChip('search', `"${currentFilters.search}"`);
+        hasFilters = true;
+      }
+      
+      // Show/hide active filters section
+      if (hasFilters) {
+        activeFilters.classList.remove('hidden');
+      } else {
+        activeFilters.classList.add('hidden');
+      }
+    }
+    
+    function addFilterChip(type, value) {
+      const chip = document.createElement('div');
+      chip.classList.add('bg-primary-100', 'dark:bg-primary-900', 'text-primary-800', 'dark:text-primary-200', 'px-3', 'py-1', 'rounded-full', 'flex', 'items-center', 'gap-1', 'text-sm');
+      
+      // Add icon based on filter type
+      let iconSvg = '';
+      let typeLabel = '';
+      
+      if (type === 'tag') {
+        iconSvg = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" /><path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" /></svg>';
+        typeLabel = 'Tag: ';
+      } else if (type === 'year') {
+        iconSvg = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" /></svg>';
+        typeLabel = 'Year: ';
+      } else if (type === 'search') {
+        iconSvg = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>';
+        typeLabel = 'Search: ';
+      }
+      
+      chip.innerHTML = `
+        ${iconSvg}
+        <span>${typeLabel}${value}</span>
+        <button class="ml-1 hover:text-primary-700 dark:hover:text-primary-300" data-filter-type="${type}">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      `;
+      
+      // Add remove button functionality
+      const removeBtn = chip.querySelector('button');
+      removeBtn?.addEventListener('click', () => {
+        if (type === 'tag') {
+          currentFilters.tag = 'all';
+        } else if (type === 'year') {
+          currentFilters.year = 'all';
+        } else if (type === 'search') {
+          currentFilters.search = '';
+          if (projectSearch) {
+            projectSearch.value = '';
+          }
+        }
+        
+        updateFilters();
+        filterProjects();
+      });
+      
+      activeFilters?.appendChild(chip);
+    }
+    
+    // Initialize
+    updateFilters();
+    filterProjects();
+  });
+</script>

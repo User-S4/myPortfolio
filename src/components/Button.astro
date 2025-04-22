@@ -1,0 +1,60 @@
+---
+interface Props {
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  variant?: "primary" | "secondary" | "outline" | "text";
+  size?: "sm" | "md" | "lg";
+  class?: string;
+  id?: string;
+  ariaLabel?: string;
+  target?: "_blank" | "_self";
+  rel?: string;
+}
+
+const {
+  href,
+  type = "button",
+  variant = "primary",
+  size = "md",
+  class: className,
+  id,
+  ariaLabel,
+  target,
+  rel,
+} = Astro.props;
+
+const variantClasses = {
+  primary: "bg-primary-500 hover:bg-primary-600 text-white",
+  secondary: "bg-secondary-500 hover:bg-secondary-600 text-white",
+  outline: "bg-transparent border border-primary-500 text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900",
+  text: "bg-transparent text-primary-500 hover:text-primary-600 hover:underline"
+};
+
+const sizeClasses = {
+  sm: "text-sm py-1.5 px-3",
+  md: "py-2 px-4",
+  lg: "text-lg py-2.5 px-5"
+};
+
+const classes = `inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      id={id}
+      class={classes}
+      aria-label={ariaLabel}
+      target={target}
+      rel={rel}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button id={id} type={type} class={classes} aria-label={ariaLabel}>
+      <slot />
+    </button>
+  )
+}

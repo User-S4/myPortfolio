@@ -1,0 +1,121 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Button from '../../components/Button.astro';
+import { getBlogPosts } from '../../lib/notion';
+
+const posts = await getBlogPosts();
+const allTags = [...new Set(posts.flatMap(post => post.tags))].sort();
+---
+
+<Layout title="Blog | Arun Kumar S.">
+  <section class="pt-32 pb-16 bg-white dark:bg-neutral-900">
+    <div class="container mx-auto px-4 md:px-6 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Blog</h1>
+      <p class="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
+        Thoughts, insights, and updates from my journey in computer science, development, and life in Dubai, United Arab Emirates.
+      </p>
+    </div>
+  </section>
+  
+  <section class="py-16 bg-neutral-50 dark:bg-neutral-800">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+          <div class="sticky top-24">
+            <div class="bg-white dark:bg-neutral-900 rounded-xl shadow-md overflow-hidden">
+              <div class="p-6">
+                <h2 class="text-xl font-bold mb-4">Categories</h2>
+                
+                <div class="space-y-2">
+                  <button data-tag="all" class="tag-filter w-full text-left px-3 py-2 rounded-lg bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-800 transition-colors">
+                    All Categories
+                  </button>
+                  
+                  {allTags.map(tag => (
+                    <button data-tag={tag} class="tag-filter w-full text-left px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Blog Posts -->
+        <div class="lg:col-span-3">
+          <div id="blog-posts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {posts.map((post) => (
+              <a 
+                href={`/blog/${post.slug}`} 
+                class="group blog-post" 
+                data-tags={JSON.stringify(post.tags)}
+              >
+                <div class="bg-white dark:bg-neutral-900 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
+                  {post.coverImage && (
+                    <div class="h-48 overflow-hidden">
+                      <img 
+                        src={post.coverImage} 
+                        alt={post.title}
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                  )}
+                  <div class="p-6 flex-grow flex flex-col">
+                    <div class="flex flex-wrap gap-2 mb-2">
+                      {post.tags.map((tag) => (
+                        <span class="text-xs bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 px-2 py-1 rounded-full">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <p class="text-neutral-500 dark:text-neutral-400 text-sm mb-2">
+                      {new Date(post.publishedDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </p>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-primary-500 transition-colors">{post.title}</h3>
+                    <p class="text-neutral-600 dark:text-neutral-400 mb-4 flex-grow">{post.excerpt}</p>
+                    <div class="flex items-center text-primary-500 font-medium">
+                      Read More
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const tagFilters = document.querySelectorAll('.tag-filter');
+    const blogPosts = document.querySelectorAll('.blog-post');
+    
+    tagFilters.forEach(button => {
+      button.addEventListener('click', () => {
+        const selectedTag = button.getAttribute('data-tag');
+        
+        tagFilters.forEach(btn => {
+          btn.classList.remove('bg-primary-50', 'dark:bg-primary-900', 'text-primary-700', 'dark:text-primary-300');
+        });
+        
+        button.classList.add('bg-primary-50', 'dark:bg-primary-900', 'text-primary-700', 'dark:text-primary-300');
+        
+        blogPosts.forEach(post => {
+          const tags = JSON.parse(post.getAttribute('data-tags') || '[]');
+          if (selectedTag === 'all' || tags.includes(selectedTag)) {
+            post.classList.remove('hidden');
+          } else {
+            post.classList.add('hidden');
+          }
+        });
+      });
+    });
+  });
+</script>
