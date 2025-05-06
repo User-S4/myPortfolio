@@ -4,6 +4,14 @@
 
 /* Custom global styles can go here */
 
+.prose, .prose * {
+  color: #e5e7eb !important; /* Tailwind neutral-200 */
+}
+
+.dark .prose, .dark .prose * {
+  color: #e5e7eb !important;
+}
+
 body {
   font-family: 'InterVariable', system-ui, sans-serif;
 }

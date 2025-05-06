@@ -9,7 +9,7 @@ import Button from '../components/Button.astro';
     <div class="container mx-auto px-4 md:px-6">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
         <div>
-          <h1 class="text-4xl md:text-5xl font-bold mb-6">Get In Touch</h1>
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">Get in Touch</h1>
           <p class="text-neutral-600 dark:text-neutral-400 mb-8 max-w-md">
             Have a project in mind? Want to collaborate? Or just want to say hello? I'd love to hear from you. Fill out the form and I'll get back to you as soon as possible.
           </p>
@@ -64,20 +64,22 @@ import Button from '../components/Button.astro';
           </div>
           
           <!-- Map or Image -->
-          <div class="rounded-xl overflow-hidden shadow-lg">
+          <div class="flex justify-center">
             <img 
-              src="https://images.unsplash.com/photo-1525285622656-3e5f8f3a0f0d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" 
+              src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.scholarshipregion.com%2Fwp-content%2Fuploads%2F2022%2F07%2FDubai-University-of-Wollongong.jpg&f=1&nofb=1&ipt=e5a18582b69ebba751ee14fa9a5a0c4177764532b0817c16d046f6b287c99ace" 
               alt="University of Wollongong in Dubai" 
-              class="w-full h-64 object-cover"
+              class="max-w-lg w-full rounded-xl shadow-lg object-contain bg-white dark:bg-neutral-900"
             />
           </div>
         </div>
         
         <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-8">
           <h2 class="text-2xl font-bold mb-6">Send Me a Message</h2>
-          
-          <form id="contact-form" class="space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <form action="https://formsubmit.co/55bbd9f03b518b58b054590baed268ac" method="POST" class="space-y-6">
+            <!-- Replace your@email.com with your real email -->
+            <input type="hidden" name="_next" value="http://localhost:4321/thank-you" />
+            <input type="hidden" name="_captcha" value="false" />
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label for="name" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Name</label>
                 <input 
@@ -88,7 +90,6 @@ import Button from '../components/Button.astro';
                   class="w-full px-4 py-2 rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
                 />
               </div>
-              
               <div>
                 <label for="email" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Email</label>
                 <input 
@@ -100,7 +101,6 @@ import Button from '../components/Button.astro';
                 />
               </div>
             </div>
-            
             <div>
               <label for="subject" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Subject</label>
               <input 
@@ -111,7 +111,6 @@ import Button from '../components/Button.astro';
                 class="w-full px-4 py-2 rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
               />
             </div>
-            
             <div>
               <label for="message" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Message</label>
               <textarea 
@@ -122,40 +121,12 @@ import Button from '../components/Button.astro';
                 class="w-full px-4 py-2 rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors resize-none"
               ></textarea>
             </div>
-            
             <div>
-              <Button type="submit" variant="primary" class="w-full">
-                <span id="submit-text">Send Message</span>
-                <span id="submit-loading" class="hidden">
-                  <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Sending...
-                </span>
-              </Button>
+              <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">Send Message</button>
             </div>
           </form>
           
-          <!-- Success message -->
-          <div id="success-message" class="hidden mt-6 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 p-4 rounded-lg">
-            <div class="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              <span>Your message has been sent successfully! I'll get back to you soon.</span>
-            </div>
-          </div>
-          
-          <!-- Error message -->
-          <div id="error-message" class="hidden mt-6 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 p-4 rounded-lg">
-            <div class="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-              <span>There was an error sending your message. Please try again later.</span>
-            </div>
-          </div>
+
         </div>
       </div>
     </div>
