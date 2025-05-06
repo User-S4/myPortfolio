@@ -59,15 +59,13 @@ const allTags = posts.length > 0 ? [...new Set(posts.flatMap(post => post.tags))
             )}
             {Array.isArray(posts) && posts.length > 0 && posts.map((post) => (
               <div class="group blog-post bg-white dark:bg-neutral-900 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 h-full flex flex-col" data-tags={JSON.stringify(post.tags)}>
-                {post.coverImage && (
-                  <div class="h-48 overflow-hidden">
-                    <img 
-                      src={post.coverImage} 
-                      alt={post.title}
-                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                  </div>
-                )}
+                <div class="h-48 overflow-hidden">
+  <img 
+    src={post.coverImage ? post.coverImage : (Math.random() > 0.5 ? '/how-to-write-a-blog-post-3239852206.png' : '/Dollarphotoclub_96280754-blog-182090224.jpg')} 
+    alt={post.title}
+    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+  />
+</div>
                 <div class="p-6 flex flex-col flex-1">
                   <div class="flex flex-wrap gap-2 mb-2">
                     {post.tags.map(tag => (
