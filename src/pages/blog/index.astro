@@ -87,6 +87,7 @@ const allTags = posts.length > 0 ? [...new Set(posts.flatMap(post => post.tags))
   </section>
 </Layout>
 
+
 <script>
   document.addEventListener('astro:page-load', () => {
     const tagFilters = document.querySelectorAll('.tag-filter');
