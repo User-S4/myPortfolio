@@ -54,3 +54,8 @@ export async function getProjects() {
 
 
 // NOTE: If you want to fetch blog posts from a 'BlogPosts' table, duplicate the above logic with the table name 'BlogPosts' and matching field names.
+
+export async function getBlogPost(slug: string) {
+  const posts = await getBlogPosts();
+  return posts.find((post: any) => post.slug === slug);
+}
