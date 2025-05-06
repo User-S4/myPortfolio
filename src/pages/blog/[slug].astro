@@ -1,15 +1,16 @@
 ---
 // DEPRECATED: This file previously used Notion. Use Airtable integration instead.
 import Layout from "../../layouts/Layout.astro";
+import { getBlogPosts, getBlogPost } from '../../lib/airtable';
 
 export async function getStaticPaths() {
-  const posts = await getBlogPosts('1e2f6b6f6e0f8071ba99e6fe94bdd2cd');
+  const posts = await getBlogPosts();
   return posts.filter(post => post.slug && typeof post.slug === 'string' && post.slug.length > 0)
     .map(post => ({ params: { slug: post.slug } }));
 }
 
 const { slug } = Astro.params;
-const post = await getBlogPost(slug, '1e2f6b6f6e0f8071ba99e6fe94bdd2cd');
+const post = await getBlogPost(slug);
 
 if (!post) {
   throw new Error(`Blog post not found for slug: ${slug}`);
